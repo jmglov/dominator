@@ -3,5 +3,6 @@
 
 (def default-db
   {:players []
+   :current-player 0
    :supply cards/supply
    :trash cards/trash})

@@ -7,8 +7,9 @@
 (re-frame/reg-event-db
  ::initialize-db
  (fn-traced [_ _]
-            db/default-db)
+            db/default-db))
 
+(re-frame/reg-event-db
  ::start-game
- (fn-traced [{:keys [db]} _]
-            {:db (game/start 2 db)}))
+ (fn-traced [db _]
+            (game/start 2 db)))

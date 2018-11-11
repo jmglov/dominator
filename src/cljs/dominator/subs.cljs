@@ -1,8 +1,8 @@
 (ns dominator.subs
-  (:require
-   [re-frame.core :as re-frame]))
+  (:require [re-frame.core :as rf]))
 
-(re-frame/reg-sub
- ::name
- (fn [db]
-   (:name db)))
+(rf/reg-sub ::players :players)
+(rf/reg-sub ::current-player :current-player)
+(rf/reg-sub ::supply :supply)
+(rf/reg-sub ::trash :trash)
+(rf/reg-sub ::game-started? :game-started?)
