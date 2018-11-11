@@ -40,18 +40,18 @@
             :description "Discard any number of cards. +1 card per card discarded."}
    :market {:name "Market"
             :type #{:action}
-            :cost 2
+            :cost 5
             :actions [{:plus-cards 1}
                       {:plus-actions 1}
                       {:plus-buys 1}
                       {:plus-money 1}]}
    :militia {:name "Militia"
              :type #{:action :attack}
-             :cost 2
+             :cost 4
              :actions [{:plus-money 1}]}
    :mine {:name "Mine"
           :type #{:action}
-          :cost 2
+          :cost 5
           :actions [{:plus-actions 1}
                     {:discard [0 :num-in-hand]}
                     {:draw :num-discarded}]}

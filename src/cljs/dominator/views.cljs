@@ -31,6 +31,18 @@
       (when-not (empty? discard)
         [:span (str "(" (dec (count discard)) ")")])]]))
 
+(defn render-row [cards]
+  [:div {:style {:display "flex"}}
+   (map render-pile cards)])
+
+(defn render-supply [cards]
+  (->> cards
+       (group-by (fn [{:keys [card]}] (get-in cards/cards [card :cost])))
+       (sort-by first)
+       reverse
+       (map second)
+       (map render-row)))
+
 (defn main-panel []
   (let [players (rf/subscribe [::subs/players])
         current-player (rf/subscribe [::subs/current-player])
@@ -39,19 +51,23 @@
         game-started? (rf/subscribe [::subs/game-started?])]
     [:div
      [:h1 "Dominator"]
-     [:h2 "Player 1"]
-     (when-not (empty? @players) (render-player 0 @players))
-     [:h2 "Supply"]
-     [:div
-      [:div {:style {:display "flex"}}
-       (map render-pile (:treasure @supply))]
-      [:div {:style {:display "flex"}}
-       (map render-pile (:victory @supply))]
-      [:div {:style {:display "flex"}}
-       (map render-pile (:main @supply))]]
-     [:h2 "Trash"]
-     [:h2 "Player 2"]
-     (when-not (empty? @players) (render-player 1 @players))
+     [:div {:class "outlined"}
+      [:h3 "Player 1"]
+      (when-not (empty? @players) (render-player 0 @players))]
+     [:div {:class "outlined"}
+      [:h3 "Supply"]
+      [:div
+       [:div {:style {:display "flex"}}
+        (map render-pile (:treasure @supply))]
+       [:div {:style {:display "flex"}}
+        (map render-pile (:victory @supply))]
+       [:div
+        (render-supply (:main @supply))]]]
+     [:div {:class "outlined"}
+      [:h3 "Trash"]]
+     [:div {:class "outlined"}
+      [:h3 "Player 2"]
+      (when-not (empty? @players) (render-player 1 @players))]
      [:button {:on-click #(rf/dispatch [::events/start-game])
                :style {:display (if (true? @game-started?) "none" "block")}}
       "Start game"]]))
