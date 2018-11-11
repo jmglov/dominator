@@ -3,7 +3,9 @@
 
 (def default-db
   {:players []
-   :current-player 0
    :supply cards/supply
    :trash cards/trash
-   :game-started? false?})
+   :num-players 0
+   :game-started? false?
+   :current-player -1
+   :turn-phase nil})

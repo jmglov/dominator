@@ -6,3 +6,4 @@
 (rf/reg-sub ::supply :supply)
 (rf/reg-sub ::trash :trash)
 (rf/reg-sub ::game-started? :game-started?)
+(rf/reg-sub ::turn-phase :turn-phase)

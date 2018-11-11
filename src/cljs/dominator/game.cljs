@@ -52,11 +52,26 @@
       (assoc :discard (concat in-play discard))
       (merge (draw-cards player 5))))
 
+(defn start-turn [player-num db]
+  (-> db
+      (assoc :current-player player-num
+             :turn-phase :action)))
+
 (defn start [num-players db]
   (-> db
-      (assoc :game-started? true)
-      (assoc :players (vec (repeat num-players (end-turn cards/player))))
-      (assoc :current-player (rand-int num-players))
+      (assoc :game-started? true
+             :num-players num-players
+             :players (vec (repeat num-players (end-turn cards/player))))
       (update-in [:supply :treasure] adjust-count :copper (* num-players -7))
       (update-in [:supply :victory] adjust-victory-count num-players)
       (update-in [:supply :victory] set-count :curse (num-curses num-players))))
+
+(defn next-phase [{:keys [turn-phase current-player num-players] :as db}]
+  (let [next-player (if (< (inc current-player) num-players)
+                      (inc current-player)
+                      0)]
+    (case turn-phase
+      :action (assoc db :turn-phase :buy)
+      :buy (assoc db
+                  :turn-phase :action
+                  :current-player next-player))))

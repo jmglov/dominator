@@ -114,3 +114,10 @@
 
 (def trash
   [])
+
+(defn active? [card turn-phase]
+  (let [type (get-in cards [card :type])]
+    (case turn-phase
+      :action (:action type)
+      :buys (:treasure type)
+      false)))

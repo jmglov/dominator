@@ -1,7 +1,12 @@
 .outlined {
     margin: 10px 0px 10px 0px;
+    outline-color: black;
     outline-style: solid;
     outline-width: 1px;
-    outline-color: black;
     padding: 5px 5px 5px 5px;
+}
+
+.current-player {
+    outline-color: green;
+    outline-width: 3px;
 }
