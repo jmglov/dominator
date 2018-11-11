@@ -5,4 +5,5 @@
   {:players []
    :current-player 0
    :supply cards/supply
-   :trash cards/trash})
+   :trash cards/trash
+   :game-started? false?})

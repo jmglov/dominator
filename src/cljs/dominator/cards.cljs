@@ -56,41 +56,34 @@
                     {:discard [0 :num-in-hand]}
                     {:draw :num-discarded}]}
    :moat {:name "Moat"
-          :type #{:action}
+          :type #{:action :reaction}
           :cost 2
-          :actions [{:plus-actions 1}
-                    {:discard [0 :num-in-hand]}
-                    {:draw :num-discarded}]}
+          :actions [{:draw 2}]
+          :reactions [{:block-attack :any}]
+          :description "When another player plays an Attack card, you may reveal this from your hand. If you do, you are unaffected by that Attack."}
    :remodel {:name "Remodel"
              :type #{:action}
-             :cost 2
-             :actions [{:plus-actions 1}
-                       {:discard [0 :num-in-hand]}
-                       {:draw :num-discarded}]}
+             :cost 4
+             :actions [{:remodel 2}]
+             :description "Trash a card from your hand. Gain a card costing up to 2 more than the trashed card."}
    :smithy {:name "Smithy"
             :type #{:action}
-            :cost 2
-            :actions [{:plus-actions 1}
-                      {:discard [0 :num-in-hand]}
-                      {:draw :num-discarded}]}
+            :cost 4
+            :actions [{:draw 3}]}
    :village {:name "Village"
              :type #{:action}
-             :cost 2
-             :actions [{:plus-actions 1}
-                       {:discard [0 :num-in-hand]}
-                       {:draw :num-discarded}]}
+             :cost 3
+             :actions [{:draw 1}
+                       {:plus-actions 2}]}
    :woodcutter {:name "Woodcutter"
                 :type #{:action}
-                :cost 2
-                :actions [{:plus-actions 1}
-                          {:discard [0 :num-in-hand]}
-                          {:draw :num-discarded}]}
+                :cost 3
+                :actions [{:plus-buys 1}
+                          {:plus-money 2}]}
    :workshop {:name "Workshop"
               :type #{:action}
-              :cost 2
-              :actions [{:plus-actions 1}
-                        {:discard [0 :num-in-hand]}
-                        {:draw :num-discarded}]}})
+              :cost 3
+              :actions [{:gain-card {:cost 4}}]}})
 
 (def supply
   {:treasure [{:card :gold, :count 30}
@@ -100,7 +93,16 @@
              {:card :duchy, :count 12}
              {:card :estate, :count 24}
              {:card :curse, :count 30}]
-   :main []
+   :main [{:card :cellar, :count 10}
+          {:card :market, :count 10}
+          {:card :militia, :count 10}
+          {:card :mine, :count 10}
+          {:card :moat, :count 10}
+          {:card :remodel, :count 10}
+          {:card :smithy, :count 10}
+          {:card :village, :count 10}
+          {:card :woodcutter, :count 10}
+          {:card :workshop, :count 10}]
    :trash []})
 
 (def player
